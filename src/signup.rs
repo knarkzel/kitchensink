@@ -55,6 +55,7 @@ pub fn Index(cx: Scope) -> Element {
                 class: "input",
                 "type": "email",
                 value: "{email}",
+                autocomplete: "email",
                 oninput: move |event| {
                     email_valid.set(event.value.contains("@"));
                     email.set(event.value.clone());
