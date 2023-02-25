@@ -1,0 +1,12 @@
+[package]
+name = "communicate"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+lto = true
+opt-level = "z"
+
+[dependencies]
+dioxus = "0.3"
+dioxus-web = "0.3"
