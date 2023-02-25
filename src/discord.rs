@@ -7,7 +7,7 @@ pub fn Index(cx: Scope) -> Element {
             a {
                 target: "_blank",
                 href: "https://discord.com/developers/applications",
-                "create a new application and enter it below",
+                "create a new application and insert token below",
             }
             ":",
         },
