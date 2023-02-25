@@ -5,10 +5,27 @@ pub mod login;
 pub mod navbar;
 pub mod signup;
 
-use std::collections::HashMap;
-
 // Imports
 pub use dioxus::prelude::*;
+pub use fermi::prelude::*;
+
+// User
+use serde::{Serialize, Deserialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct User {
+    id: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct SupabaseUser {
+    pub access_token: String,
+    pub refresh_token: String,
+    pub user: User,
+}
+
+// Global state
+pub static USER: Atom<Option<SupabaseUser>> = |_| None;
 
 // Constants
 const SUPABASE_ENDPOINT: &str = "https://ojjkwixnlbiakfnhaksp.supabase.co";
@@ -26,6 +43,7 @@ impl Supabase {
 
 // Regular HTTP client
 use reqwest::Response;
+use std::collections::HashMap;
 
 pub struct Client {
     client: reqwest::Client,

@@ -4,6 +4,10 @@ use dioxus_router::{use_router, Link};
 pub fn NavBar(cx: Scope) -> Element {
     // Hooks
     let router = use_router(cx);
+
+    // User
+    let user = use_read(cx, USER);
+    let set_user = use_set(cx, USER);
     
     cx.render(rsx! {
         nav {
@@ -11,24 +15,43 @@ pub fn NavBar(cx: Scope) -> Element {
             div {
                 class: "navbar-start",
                 Link { class: "navbar-item", to: "/", "Home" },
-                Link { class: "navbar-item", to: "/discord", "Discord" },
+                if user.is_some() {
+                    rsx! {
+                        Link { class: "navbar-item", to: "/discord", "Discord" },
+                    }
+                }
             },
             div {
                 class: "navbar-end m-2",
                 div {
                     class: "buttons",
-                    button {
-                        class: "button is-primary",
-                        onclick: |_| router.navigate_to("/signup"),
-                        "Sign up",
-                    },
-                    button {
-                        class: "button is-info",
-                        onclick: |_| router.navigate_to("/login"),
-                        "Login",
-                    },
+                    if user.is_none() {
+                        rsx! {
+                            button {
+                                class: "button is-primary",
+                                onclick: |_| router.navigate_to("/signup"),
+                                "Sign up",
+                            },
+                            button {
+                                class: "button is-info",
+                                onclick: |_| router.navigate_to("/login"),
+                                "Login",
+                            },                            
+                        }
+                    } else {
+                        rsx! {
+                            button {
+                                class: "button is-danger",
+                                onclick: |_| {
+                                    set_user(None);
+                                    router.navigate_to("/");
+                                },
+                                "Logout",
+                            },
+                        }
+                    }
                 },
-            },
+            },                    
         },
     })
 }

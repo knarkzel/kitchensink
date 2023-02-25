@@ -1,7 +1,8 @@
 use crate::*;
+use dioxus_router::use_router;
 
 pub fn Index(cx: Scope) -> Element {
-    // Hooks
+    // Form
     let email = use_state(cx, || String::new());
     let password = use_state(cx, || String::new());
     let email_valid = use_state(cx, || false);
@@ -16,6 +17,8 @@ pub fn Index(cx: Scope) -> Element {
             let password = password.to_owned();
             let signing_up = signing_up.to_owned();
             let output = output.to_owned();
+            let set_user = use_set(cx, USER).clone();
+            let router = use_router(cx).clone();
             
             async move {
                 output.set(String::new());
@@ -24,8 +27,12 @@ pub fn Index(cx: Scope) -> Element {
                 signing_up.set(false);
                 
                 match response {
-                    Ok(data) => if let Ok(body) = data.text().await {
-                        output.set(body);
+                    Ok(data) => match data.json::<SupabaseUser>().await {
+                        Ok(user) => {
+                            router.navigate_to("/");
+                            set_user(Some(user));                            
+                        },
+                        Err(error) => output.set(format!("{error:#?}")),
                     }
                     Err(error) => output.set(format!("{error:#?}")),
                 }
@@ -67,7 +74,7 @@ pub fn Index(cx: Scope) -> Element {
                 oninput: move |event| {
                     password_valid.set(event.value.len() >= 8);
                     password.set(event.value.clone());   
-                }
+                },
             },
         },
         if **email_valid && **password_valid {

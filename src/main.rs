@@ -6,6 +6,9 @@ fn main() {
 }
 
 fn app(cx: Scope) -> Element {
+    // Setup fermi
+    use_init_atom_root(cx);
+    
     cx.render(rsx! {
         main {
             Router {
@@ -17,7 +20,7 @@ fn app(cx: Scope) -> Element {
                     Route { to: "/signup", signup::Index {} },
                     Route { to: "/discord", discord::Index {} },
                 },
-            },
+            },                
         },
     })
 }
