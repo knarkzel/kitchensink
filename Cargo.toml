@@ -1,5 +1,5 @@
 [package]
-name = "communicate"
+name = "kitchensink"
 version = "0.1.0"
 edition = "2021"
 

@@ -26,7 +26,7 @@ jobs:
           key: ${{ runner.os }}-nix-${{ hashFiles('./flake.lock', './flake.nix') }}
 
       - name: Build website
-        run: nix --extra-experimental-features nix-command --extra-experimental-features flakes develop --ignore-environment --command trunk build --release --public-url communicate
+        run: nix --extra-experimental-features nix-command --extra-experimental-features flakes develop --ignore-environment --command trunk build --release --public-url kitchensink
         
       - uses: JamesIves/github-pages-deploy-action@4.1.4
         with:

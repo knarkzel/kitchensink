@@ -1,4 +1,4 @@
-use communicate::*;
+use kitchensink::*;
 use dioxus_router::{Router, Route};
 
 fn main() {

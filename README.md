@@ -1,8 +1,8 @@
-# communicate
+# kitchen sink
 
 ```
-git clone https://github.com/knarkzel/communicate
-cd communicate
+git clone https://github.com/knarkzel/kitchensink
+cd kitchensink
 nix develop
 trunk serve
 ```

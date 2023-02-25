@@ -113,20 +113,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "communicate"
-version = "0.1.0"
-dependencies = [
- "dioxus",
- "dioxus-router",
- "dioxus-web",
- "fermi",
- "log",
- "postgrest",
- "reqwest",
- "serde",
-]
-
-[[package]]
 name = "console_error_panic_hook"
 version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -644,6 +630,20 @@ dependencies = [
  "bitflags",
  "serde",
  "unicode-segmentation",
+]
+
+[[package]]
+name = "kitchensink"
+version = "0.1.0"
+dependencies = [
+ "dioxus",
+ "dioxus-router",
+ "dioxus-web",
+ "fermi",
+ "log",
+ "postgrest",
+ "reqwest",
+ "serde",
 ]
 
 [[package]]
