@@ -1004,7 +1004,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('communicate-fc45ac5959671519_bg.wasm', import.meta.url);
+        input = new URL('communicate-7a26d617305131a7_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 
