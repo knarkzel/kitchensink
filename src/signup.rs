@@ -6,14 +6,40 @@ pub fn Index(cx: Scope) -> Element {
     let password = use_state(cx, || String::new());
     let email_valid = use_state(cx, || false);
     let password_valid = use_state(cx, || false);
+
+    // Signup
+    let signing_up = use_state(cx, || false);
+    let output = use_state(cx, || String::new());
+    let signup = move |_| {
+        cx.spawn({
+            let email = email.to_owned();
+            let password = password.to_owned();
+            let signing_up = signing_up.to_owned();
+            let output = output.to_owned();
+            
+            async move {
+                output.set(String::new());
+                signing_up.set(true);
+                let response = Client::new().signup(&email, &password).await;
+                signing_up.set(false);
+                
+                match response {
+                    Ok(data) => if let Ok(body) = data.text().await {
+                        output.set(body);
+                    }
+                    Err(error) => output.set(format!("{error:#?}")),
+                }
+            }
+        });
+    };
     
     cx.render(rsx! {
         h1 {
-            class: "m-0",
+            class: "mt-0",
             "Sign up",
         },
         div {
-            class: "field mt-4",
+            class: "field",
             label {
                 class: "label",
                 "Email",
@@ -45,11 +71,21 @@ pub fn Index(cx: Scope) -> Element {
             },
         },
         if **email_valid && **password_valid {
-            rsx! {
-                button {
-                    class: "button is-link",
-                    "Sign up",
-                },
+            if **signing_up {
+                rsx! {
+                    button {
+                        class: "button is-link is-loading",
+                        "Sign up",
+                    },
+                }
+            } else {
+                rsx! {
+                    button {
+                        onclick: signup,
+                        class: "button is-link",
+                        "Sign up",
+                    },
+                }
             }
         } else {
             rsx! {
@@ -58,6 +94,14 @@ pub fn Index(cx: Scope) -> Element {
                     class: "button is-link",
                     "Sign up",
                 },                
+            }
+        }
+        if output.len() > 0 {
+            rsx! {
+                pre {
+                    class: "mt-4",
+                    "{output}",
+                },
             }
         }
     })

@@ -3,7 +3,7 @@ use crate::*;
 pub fn Index(cx: Scope) -> Element {
     cx.render(rsx! {
         h1 {
-            class: "m-0",
+            class: "mt-0",
             "Messages",
         },
         ul {
