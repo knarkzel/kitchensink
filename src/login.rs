@@ -10,7 +10,7 @@ pub fn Index(cx: Scope) -> Element {
             class: "field mt-4",
             label {
                 class: "label",
-                "Username",
+                "Email",
             },
             input {
                 class: "input",
@@ -29,13 +29,12 @@ pub fn Index(cx: Scope) -> Element {
             },            
         },
         label {
-            class: "checkbox",
+            class: "checkbox is-block",
             input {
                 "type": "checkbox",
             },
             " Stay logged in",
         },
-        br {},
         button {
             class: "button is-link mt-2",
             "Login",
