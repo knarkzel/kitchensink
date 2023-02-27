@@ -19,8 +19,9 @@ fn app(cx: Scope) -> Element {
                     Route { to: "/login", login::Index {} },
                     Route { to: "/signup", signup::Index {} },
                     Route { to: "/discord", discord::Index {} },
+                    Route { to: "/settings", settings::Index {} },
                 },
-            },                
+            },
         },
     })
 }

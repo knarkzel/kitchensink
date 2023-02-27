@@ -4,6 +4,7 @@ pub mod home;
 pub mod login;
 pub mod navbar;
 pub mod signup;
+pub mod settings;
 
 // Imports
 pub use dioxus::prelude::*;

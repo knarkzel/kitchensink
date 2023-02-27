@@ -23,7 +23,7 @@ pub fn Index(cx: Scope) -> Element {
                 placeholder: "OAuth2 token",
             },
             button {
-                class: "button is-link ml-2",
+                class: "button ml-2",
                 "Store token",
             },            
         },

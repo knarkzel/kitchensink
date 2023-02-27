@@ -82,7 +82,7 @@ pub fn Index(cx: Scope) -> Element {
             if **signing_up {
                 rsx! {
                     button {
-                        class: "button is-link is-loading",
+                        class: "button is-loading",
                         "Sign up",
                     },
                 }
@@ -90,7 +90,7 @@ pub fn Index(cx: Scope) -> Element {
                 rsx! {
                     button {
                         onclick: signup,
-                        class: "button is-link",
+                        class: "button",
                         "Sign up",
                     },
                 }
@@ -99,7 +99,7 @@ pub fn Index(cx: Scope) -> Element {
             rsx! {
                 button {
                     disabled: "true",
-                    class: "button is-link",
+                    class: "button",
                     "Sign up",
                 },                
             }

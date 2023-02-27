@@ -28,12 +28,12 @@ pub fn NavBar(cx: Scope) -> Element {
                     if user.is_none() {
                         rsx! {
                             button {
-                                class: "button is-primary",
+                                class: "button",
                                 onclick: |_| router.navigate_to("/signup"),
                                 "Sign up",
                             },
                             button {
-                                class: "button is-info",
+                                class: "button",
                                 onclick: |_| router.navigate_to("/login"),
                                 "Login",
                             },                            
@@ -41,7 +41,12 @@ pub fn NavBar(cx: Scope) -> Element {
                     } else {
                         rsx! {
                             button {
-                                class: "button is-danger",
+                                class: "button",
+                                onclick: |_| router.navigate_to("/settings"),
+                                "Settings",
+                            },
+                            button {
+                                class: "button",
                                 onclick: |_| {
                                     set_user(None);
                                     router.navigate_to("/");
