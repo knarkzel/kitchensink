@@ -960,12 +960,12 @@ imports.wbg.__wbg_metaKey_934772989e28020c = function(arg0) {
     const ret = getObject(arg0).metaKey;
     return ret;
 };
-imports.wbg.__wbindgen_closure_wrapper835 = function(arg0, arg1, arg2) {
-    const ret = makeMutClosure(arg0, arg1, 59, __wbg_adapter_24);
+imports.wbg.__wbindgen_closure_wrapper836 = function(arg0, arg1, arg2) {
+    const ret = makeMutClosure(arg0, arg1, 60, __wbg_adapter_24);
     return addHeapObject(ret);
 };
-imports.wbg.__wbindgen_closure_wrapper2139 = function(arg0, arg1, arg2) {
-    const ret = makeMutClosure(arg0, arg1, 108, __wbg_adapter_27);
+imports.wbg.__wbindgen_closure_wrapper2144 = function(arg0, arg1, arg2) {
+    const ret = makeMutClosure(arg0, arg1, 109, __wbg_adapter_27);
     return addHeapObject(ret);
 };
 imports['./snippets/dioxus-interpreter-js-dab579f08da5298b/inline0.js'] = __wbg_star0;
@@ -1004,7 +1004,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('kitchensink-d3dfa480b697cb_bg.wasm', import.meta.url);
+        input = new URL('kitchensink-a0a42a89041c7bf8_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 
