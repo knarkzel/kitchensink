@@ -5,10 +5,12 @@ pub mod login;
 pub mod navbar;
 pub mod signup;
 pub mod settings;
+pub mod feeds;
 
 // Imports
 pub use dioxus::prelude::*;
 pub use fermi::prelude::*;
+pub use gloo_storage::{Storage, LocalStorage};
 
 // User
 use serde::{Serialize, Deserialize};

@@ -17,8 +17,8 @@ pub fn Index(cx: Scope) -> Element {
             let password = password.to_owned();
             let signing_up = signing_up.to_owned();
             let output = output.to_owned();
-            let set_user = use_set(cx, USER).clone();
             let router = use_router(cx).clone();
+            let set_user = use_set(cx, USER).clone();
             
             async move {
                 output.set(String::new());
@@ -29,8 +29,9 @@ pub fn Index(cx: Scope) -> Element {
                 match response {
                     Ok(data) => match data.json::<SupabaseUser>().await {
                         Ok(user) => {
+                            LocalStorage::set("user", &user);
+                            set_user(Some(user));
                             router.navigate_to("/");
-                            set_user(Some(user));                            
                         },
                         Err(error) => output.set(format!("{error:#?}")),
                     }

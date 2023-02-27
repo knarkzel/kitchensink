@@ -17,6 +17,7 @@ pub fn NavBar(cx: Scope) -> Element {
                 Link { class: "navbar-item", to: "/", "Home" },
                 if user.is_some() {
                     rsx! {
+                        Link { class: "navbar-item", to: "/feeds", "Feeds" },
                         Link { class: "navbar-item", to: "/discord", "Discord" },
                     }
                 }
@@ -49,6 +50,7 @@ pub fn NavBar(cx: Scope) -> Element {
                                 class: "button",
                                 onclick: |_| {
                                     set_user(None);
+                                    LocalStorage::delete("user");
                                     router.navigate_to("/");
                                 },
                                 "Logout",
