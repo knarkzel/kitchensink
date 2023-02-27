@@ -1,5 +1,4 @@
 use crate::*;
-use dioxus_router::use_router;
 
 pub fn Index(cx: Scope) -> Element {
     // Form
@@ -13,34 +12,35 @@ pub fn Index(cx: Scope) -> Element {
     let output = use_state(cx, || String::new());
     let signup = move |_| {
         cx.spawn({
+            // Setup state
             let email = email.to_owned();
             let password = password.to_owned();
             let signing_up = signing_up.to_owned();
             let output = output.to_owned();
             let router = use_router(cx).clone();
             let set_user = use_set(cx, USER).clone();
-            
+
             async move {
                 output.set(String::new());
                 signing_up.set(true);
                 let response = Client::new().signup(&email, &password).await;
                 signing_up.set(false);
-                
+
                 match response {
                     Ok(data) => match data.json::<SupabaseUser>().await {
                         Ok(user) => {
                             LocalStorage::set("user", &user);
                             set_user(Some(user));
                             router.navigate_to("/");
-                        },
+                        }
                         Err(error) => output.set(format!("{error:#?}")),
-                    }
+                    },
                     Err(error) => output.set(format!("{error:#?}")),
                 }
             }
         });
     };
-    
+
     cx.render(rsx! {
         h1 {
             class: "mt-0",
@@ -75,7 +75,7 @@ pub fn Index(cx: Scope) -> Element {
                 value: "{password}",
                 oninput: move |event| {
                     password_valid.set(event.value.len() >= 8);
-                    password.set(event.value.clone());   
+                    password.set(event.value.clone());
                 },
             },
         },
@@ -102,7 +102,7 @@ pub fn Index(cx: Scope) -> Element {
                     disabled: "true",
                     class: "button",
                     "Sign up",
-                },                
+                },
             }
         }
         if output.len() > 0 {

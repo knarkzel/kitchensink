@@ -1,19 +1,21 @@
 // Modules
 pub mod discord;
+pub mod feeds;
 pub mod home;
 pub mod login;
 pub mod navbar;
-pub mod signup;
 pub mod settings;
-pub mod feeds;
+pub mod signup;
 
 // Imports
 pub use dioxus::prelude::*;
+pub use dioxus_router::*;
 pub use fermi::prelude::*;
-pub use gloo_storage::{Storage, LocalStorage};
+pub use gloo_storage::{LocalStorage, Storage};
+pub use serde_json::json;
 
 // User
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct User {

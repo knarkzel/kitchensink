@@ -1,5 +1,4 @@
 use kitchensink::*;
-use dioxus_router::{Router, Route};
 
 fn main() {
     dioxus_web::launch(app);
@@ -14,7 +13,7 @@ fn app(cx: Scope) -> Element {
         let set_user = use_set(cx, USER);
         set_user(Some(user));
     }
-    
+
     cx.render(rsx! {
         main {
             Router {

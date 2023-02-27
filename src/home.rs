@@ -12,6 +12,6 @@ pub fn Index(cx: Scope) -> Element {
                     "Item {i}",
                 },
             }),
-        },                
+        },
     })
 }

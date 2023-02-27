@@ -25,7 +25,7 @@ pub fn Index(cx: Scope) -> Element {
             button {
                 class: "button ml-2",
                 "Store token",
-            },            
+            },
         },
     })
 }

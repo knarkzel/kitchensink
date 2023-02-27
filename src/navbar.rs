@@ -1,5 +1,4 @@
 use crate::*;
-use dioxus_router::{use_router, Link};
 
 pub fn NavBar(cx: Scope) -> Element {
     // Hooks
@@ -8,7 +7,7 @@ pub fn NavBar(cx: Scope) -> Element {
     // User
     let user = use_read(cx, USER);
     let set_user = use_set(cx, USER);
-    
+
     cx.render(rsx! {
         nav {
             class: "navbar has-background-light",
@@ -17,8 +16,8 @@ pub fn NavBar(cx: Scope) -> Element {
                 Link { class: "navbar-item", to: "/", "Home" },
                 if user.is_some() {
                     rsx! {
-                        Link { class: "navbar-item", to: "/feeds", "Feeds" },
                         Link { class: "navbar-item", to: "/discord", "Discord" },
+                        Link { class: "navbar-item", to: "/feeds", "Feeds" },
                     }
                 }
             },
@@ -37,7 +36,7 @@ pub fn NavBar(cx: Scope) -> Element {
                                 class: "button",
                                 onclick: |_| router.navigate_to("/login"),
                                 "Login",
-                            },                            
+                            },
                         }
                     } else {
                         rsx! {
@@ -58,8 +57,7 @@ pub fn NavBar(cx: Scope) -> Element {
                         }
                     }
                 },
-            },                    
+            },
         },
     })
 }
-
