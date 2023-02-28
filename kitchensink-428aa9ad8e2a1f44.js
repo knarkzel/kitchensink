@@ -746,10 +746,6 @@ imports.wbg.__wbg_toString_cec163b212643722 = function(arg0) {
     const ret = getObject(arg0).toString();
     return addHeapObject(ret);
 };
-imports.wbg.__wbg_removeItem_793faa7edf21ad57 = function() { return handleError(function (arg0, arg1, arg2) {
-    var v0 = getCachedStringFromWasm0(arg1, arg2);
-    getObject(arg0).removeItem(v0);
-}, arguments) };
 imports.wbg.__wbg_new_f9876326328f45ed = function() {
     const ret = new Object();
     return addHeapObject(ret);
@@ -869,6 +865,10 @@ imports.wbg.__wbg_length_27a2afe8ab42b09f = function(arg0) {
 imports.wbg.__wbg_set_17499e8aa4003ebd = function(arg0, arg1, arg2) {
     getObject(arg0).set(getObject(arg1), arg2 >>> 0);
 };
+imports.wbg.__wbg_removeItem_793faa7edf21ad57 = function() { return handleError(function (arg0, arg1, arg2) {
+    var v0 = getCachedStringFromWasm0(arg1, arg2);
+    getObject(arg0).removeItem(v0);
+}, arguments) };
 imports.wbg.__wbg_error_fe807da27c4a4ced = function(arg0) {
     console.error(getObject(arg0));
 };
@@ -1025,8 +1025,8 @@ imports.wbg.__wbindgen_closure_wrapper901 = function(arg0, arg1, arg2) {
     const ret = makeMutClosure(arg0, arg1, 54, __wbg_adapter_24);
     return addHeapObject(ret);
 };
-imports.wbg.__wbindgen_closure_wrapper2407 = function(arg0, arg1, arg2) {
-    const ret = makeMutClosure(arg0, arg1, 126, __wbg_adapter_27);
+imports.wbg.__wbindgen_closure_wrapper2397 = function(arg0, arg1, arg2) {
+    const ret = makeMutClosure(arg0, arg1, 127, __wbg_adapter_27);
     return addHeapObject(ret);
 };
 imports['./snippets/dioxus-interpreter-js-dab579f08da5298b/inline0.js'] = __wbg_star0;
@@ -1065,7 +1065,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('kitchensink-c54f9304e9d393a_bg.wasm', import.meta.url);
+        input = new URL('kitchensink-428aa9ad8e2a1f44_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 
