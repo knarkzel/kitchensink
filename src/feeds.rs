@@ -2,7 +2,8 @@ use crate::*;
 
 pub fn Index(cx: Scope) -> Element {
     // User
-    let user = use_read(cx, USER);
+    let settings = use_read(cx, SETTINGS);
+    let feeds = use_state(cx, || {});
 
     cx.render(rsx! {
         h1 {

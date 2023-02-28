@@ -26,7 +26,6 @@ pub fn Index(cx: Scope) -> Element {
                 } else {
                     http::Client::new().login(&email, &password).await
                 };
-                loading.set(false);
 
                 match response {
                     Ok(data) => match data.json::<SupabaseUser>().await {
@@ -41,9 +40,10 @@ pub fn Index(cx: Scope) -> Element {
                                     Err(error) => log::error!("{error:?}"),
                                 }
                             }
+                            loading.set(false);
+                            router.navigate_to("/");
                             let _ = LocalStorage::set("user", &user);
                             set_user(Some(user));
-                            router.navigate_to("/");
                         }
                         Err(error) => log::error!("{error:?}"),
                     },
