@@ -1,4 +1,5 @@
 // Modules
+pub mod account;
 pub mod discord;
 pub mod feeds;
 pub mod home;
@@ -6,7 +7,6 @@ pub mod http;
 pub mod navbar;
 pub mod settings;
 pub mod supabase;
-pub mod account;
 
 // Imports
 pub use anyhow::Result;

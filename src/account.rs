@@ -5,7 +5,7 @@ pub fn Index(cx: Scope) -> Element {
     let email = use_state(cx, || String::new());
     let password = use_state(cx, || String::new());
     let create_account = use_state(cx, || false);
-    
+
     // Authenticate
     let loading = use_state(cx, || false);
     let login = move |_| {
@@ -18,7 +18,7 @@ pub fn Index(cx: Scope) -> Element {
             let router = use_router(cx).clone();
             let set_user = use_set(cx, USER).clone();
             let set_settings = use_set(cx, SETTINGS).clone();
-            
+
             async move {
                 loading.set(true);
                 let response = if *create_account {
@@ -35,8 +35,8 @@ pub fn Index(cx: Scope) -> Element {
                                 match supabase::settings(&user.user.id).await {
                                     Ok(settings) => {
                                         let _ = LocalStorage::set("settings", &settings);
-                                        set_settings(settings);   
-                                    },
+                                        set_settings(settings);
+                                    }
                                     Err(error) => log::error!("{error:?}"),
                                 }
                             }

@@ -5,7 +5,7 @@ pub fn Index(cx: Scope) -> Element {
     let saving = use_state(cx, || false);
     let settings = use_read(cx, SETTINGS);
     let set_settings = use_set(cx, SETTINGS);
-    
+
     cx.render(rsx! {
         h1 {
             class: "mt-0",
@@ -45,7 +45,7 @@ pub fn Index(cx: Scope) -> Element {
                             "feeds": settings.feeds,
                         });
                         let _ = LocalStorage::set("settings", settings);
-                        
+
                         async move {
                             saving.set(true);
                             if let Err(error) = supabase::save(query.to_string()).await {

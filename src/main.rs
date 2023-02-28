@@ -16,7 +16,7 @@ fn app(cx: Scope) -> Element {
         let set_user = use_set(cx, USER);
         set_user(Some(user));
     }
-    
+
     if let Ok(settings) = LocalStorage::get::<Settings>("settings") {
         let set_settings = use_set(cx, SETTINGS);
         set_settings(settings);

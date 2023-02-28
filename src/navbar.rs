@@ -22,36 +22,25 @@ pub fn NavBar(cx: Scope) -> Element {
                 }
             },
             div {
-                class: "navbar-end m-2",
-                div {
-                    class: "buttons",
-                    if user.is_some() {
-                        rsx! {
-                            button {
-                                class: "button",
-                                onclick: |_| router.navigate_to("/settings"),
-                                "Settings",
+                class: "navbar-end",
+                if user.is_some() {
+                    rsx! {
+                        Link { class: "navbar-item", to: "/settings", "Settings" },
+                        a {
+                            class: "navbar-item",
+                            onclick: |_| {
+                                set_user(None);
+                                LocalStorage::delete("user");
+                                router.navigate_to("/");
                             },
-                            button {
-                                class: "button",
-                                onclick: |_| {
-                                    set_user(None);
-                                    LocalStorage::delete("user");
-                                    router.navigate_to("/");
-                                },
-                                "Logout",
-                            },
-                        }
-                    } else {
-                        rsx! {
-                            button {
-                                class: "button",
-                                onclick: |_| router.navigate_to("/account"),
-                                "Account",
-                            },
-                        }
+                            "Logout"
+                        },
                     }
-                },
+                } else {
+                    rsx! {
+                        Link { class: "navbar-item", to: "/account", "Account" },
+                    }
+                }
             },
         },
     })
