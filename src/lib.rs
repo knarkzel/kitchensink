@@ -3,11 +3,10 @@ pub mod discord;
 pub mod feeds;
 pub mod home;
 pub mod http;
-pub mod login;
 pub mod navbar;
 pub mod settings;
-pub mod signup;
 pub mod supabase;
+pub mod account;
 
 // Imports
 pub use anyhow::Result;

@@ -25,20 +25,7 @@ pub fn NavBar(cx: Scope) -> Element {
                 class: "navbar-end m-2",
                 div {
                     class: "buttons",
-                    if user.is_none() {
-                        rsx! {
-                            button {
-                                class: "button",
-                                onclick: |_| router.navigate_to("/signup"),
-                                "Sign up",
-                            },
-                            button {
-                                class: "button",
-                                onclick: |_| router.navigate_to("/login"),
-                                "Login",
-                            },
-                        }
-                    } else {
+                    if user.is_some() {
                         rsx! {
                             button {
                                 class: "button",
@@ -53,6 +40,14 @@ pub fn NavBar(cx: Scope) -> Element {
                                     router.navigate_to("/");
                                 },
                                 "Logout",
+                            },
+                        }
+                    } else {
+                        rsx! {
+                            button {
+                                class: "button",
+                                onclick: |_| router.navigate_to("/account"),
+                                "Account",
                             },
                         }
                     }

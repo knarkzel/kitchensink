@@ -29,8 +29,7 @@ fn app(cx: Scope) -> Element {
                 div {
                     class: "content p-4",
                     Route { to: "/", home::Index {} },
-                    Route { to: "/login", login::Index {} },
-                    Route { to: "/signup", signup::Index {} },
+                    Route { to: "/account", account::Index {} },
                     Route { to: "/discord", discord::Index {} },
                     Route { to: "/settings", settings::Index {} },
                     Route { to: "/feeds", feeds::Index {} },
