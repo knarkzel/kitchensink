@@ -1025,7 +1025,7 @@ imports.wbg.__wbindgen_closure_wrapper901 = function(arg0, arg1, arg2) {
     const ret = makeMutClosure(arg0, arg1, 54, __wbg_adapter_24);
     return addHeapObject(ret);
 };
-imports.wbg.__wbindgen_closure_wrapper2402 = function(arg0, arg1, arg2) {
+imports.wbg.__wbindgen_closure_wrapper2399 = function(arg0, arg1, arg2) {
     const ret = makeMutClosure(arg0, arg1, 127, __wbg_adapter_27);
     return addHeapObject(ret);
 };
@@ -1065,7 +1065,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('kitchensink-1e12d851a28b12b8_bg.wasm', import.meta.url);
+        input = new URL('kitchensink-ceb1c933e79637_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 
