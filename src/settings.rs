@@ -1,13 +1,11 @@
 use crate::*;
 
 pub fn Index(cx: Scope) -> Element {
-    // Input
-    let feeds = use_state(cx, || String::new());
+    // State
     let saving = use_state(cx, || false);
+    let settings = use_read(cx, SETTINGS);
+    let set_settings = use_set(cx, SETTINGS);
     
-    // User
-    let user = use_read(cx, USER);
-
     cx.render(rsx! {
         h1 {
             class: "mt-0",
@@ -21,9 +19,15 @@ pub fn Index(cx: Scope) -> Element {
             },
             textarea {
                 class: "textarea",
-                value: "{feeds}",
+                value: "{settings.feeds}",
                 placeholder: "RSS or Atom feeds",
-                oninput: move |event| feeds.set(event.value.clone()),
+                oninput: move |event| {
+                    let settings = Settings {
+                        feeds: event.value.clone(),
+                        ..*settings
+                    };
+                    set_settings(settings);
+                },
             },
             button {
                 class: if **saving {
@@ -33,17 +37,21 @@ pub fn Index(cx: Scope) -> Element {
                 },
                 onclick: move |_| {
                     cx.spawn({
-                        // Setup query
-                        let client = Supabase::new();
+                        // Setup state
+                        let saving = saving.to_owned();
+                        let user = use_read(cx, USER).to_owned();
                         let query = json!({
                             "user_id": user.as_ref().unwrap().user.id,
-                            "feeds": **feeds,
+                            "feeds": settings.feeds,
                         });
-                        let saving = saving.to_owned();
+                        let _ = LocalStorage::set("settings", settings);
                         
                         async move {
                             saving.set(true);
-                            let _ = client.from("settings").upsert(query.to_string()).on_conflict("user_id").execute().await;
+                            if let Err(error) = supabase::save(query.to_string()).await {
+                                log::error!("{error:?}");
+                            } else {
+                            }
                             saving.set(false);
                         }
                     });

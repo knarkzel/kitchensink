@@ -4,38 +4,33 @@ pub fn Index(cx: Scope) -> Element {
     // Form
     let email = use_state(cx, || String::new());
     let password = use_state(cx, || String::new());
-    let email_valid = use_state(cx, || false);
-    let password_valid = use_state(cx, || false);
 
     // Signup
     let signing_up = use_state(cx, || false);
-    let output = use_state(cx, || String::new());
     let signup = move |_| {
         cx.spawn({
             // Setup state
             let email = email.to_owned();
             let password = password.to_owned();
             let signing_up = signing_up.to_owned();
-            let output = output.to_owned();
             let router = use_router(cx).clone();
             let set_user = use_set(cx, USER).clone();
 
             async move {
-                output.set(String::new());
                 signing_up.set(true);
-                let response = Client::new().signup(&email, &password).await;
+                let response = http::Client::new().signup(&email, &password).await;
                 signing_up.set(false);
 
                 match response {
                     Ok(data) => match data.json::<SupabaseUser>().await {
                         Ok(user) => {
-                            LocalStorage::set("user", &user);
+                            let _ = LocalStorage::set("user", &user);
                             set_user(Some(user));
                             router.navigate_to("/");
                         }
-                        Err(error) => output.set(format!("{error:#?}")),
+                        Err(error) => log::error!("{error:?}"),
                     },
-                    Err(error) => output.set(format!("{error:#?}")),
+                    Err(error) => log::error!("{error:?}"),
                 }
             }
         });
@@ -57,10 +52,7 @@ pub fn Index(cx: Scope) -> Element {
                 "type": "email",
                 value: "{email}",
                 autocomplete: "email",
-                oninput: move |event| {
-                    email_valid.set(event.value.contains("@"));
-                    email.set(event.value.clone());
-                },
+                oninput: move |event| email.set(event.value.clone()),
             },
         },
         div {
@@ -73,45 +65,17 @@ pub fn Index(cx: Scope) -> Element {
                 class: "input",
                 "type": "password",
                 value: "{password}",
-                oninput: move |event| {
-                    password_valid.set(event.value.len() >= 8);
-                    password.set(event.value.clone());
-                },
+                oninput: move |event| password.set(event.value.clone()),
             },
         },
-        if **email_valid && **password_valid {
-            if **signing_up {
-                rsx! {
-                    button {
-                        class: "button is-loading",
-                        "Sign up",
-                    },
-                }
+        button {
+            class: if **signing_up {
+                "button is-loading"
             } else {
-                rsx! {
-                    button {
-                        onclick: signup,
-                        class: "button",
-                        "Sign up",
-                    },
-                }
-            }
-        } else {
-            rsx! {
-                button {
-                    disabled: "true",
-                    class: "button",
-                    "Sign up",
-                },
-            }
-        }
-        if output.len() > 0 {
-            rsx! {
-                pre {
-                    class: "mt-4",
-                    "{output}",
-                },
-            }
-        }
+                "button"
+            },
+            onclick: signup,
+            "Login",
+        },
     })
 }
